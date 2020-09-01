@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "respireApp",
+    "slug": "respireApp",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo512512.png",
+    "splash": {
+      "image": "./assets/logo512512.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "web": {
+      "favicon": "./assets/logo512512.png"
+    },
+    "description": "",
+    "android": {
+      "package": "com.amostin.respireApp"
+    }
+  }
+}
