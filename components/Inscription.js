@@ -69,11 +69,10 @@ class Inscription extends React.Component {
             <ScrollView>
                 <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
-                    <View style={styles.containerTitre}>
-                        <View style={{ flex: 6, justifyContent: 'center' }}>
-                            <Text style={styles.titrePage}>Inscription</Text>
-                        </View>
-                    </View>
+                    <Image
+                        source={require('../assets/logo.png')}
+                        style={styles.logo}
+                    />
 
                     <TextInput
                         placeholder="Nom"

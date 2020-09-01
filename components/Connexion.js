@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, TextInput, Image, AsyncStorage, ScrollView } from "react-native";
-import Inscription from './Inscription';
-
 
 class Connexion extends React.Component {
     constructor(props) {
@@ -77,11 +75,10 @@ class Connexion extends React.Component {
             <ScrollView>
                 <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
-                    <View style={styles.containerTitre}>
-                        <View style={{ flex: 6, justifyContent: 'center' }}>
-                            <Text style={styles.titrePage}>Connexion</Text>
-                        </View>
-                    </View>
+                    <Image
+                        source={require('../assets/logo.png')}
+                        style={styles.logo}
+                    />
 
                     <TextInput
                         style={styles.inputBox}
@@ -108,7 +105,7 @@ class Connexion extends React.Component {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        onPress={() => <Inscription/>}>
+                        onPress={() => this.props.navigation.navigate("Inscription")}>
                         <Text>Pas encore de compte ? Inscrivez vous !</Text>
                     </TouchableOpacity>
                 </SafeAreaView>

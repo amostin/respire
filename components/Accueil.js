@@ -124,11 +124,10 @@ class Accueil extends React.Component {
             <ScrollView>
                 <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
-                    <View style={styles.containerTitre}>
-                        <View style={{ flex: 6, justifyContent: 'center' }}>
-                            <Text style={styles.titrePage}>Respire</Text>
-                        </View>
-                    </View>
+                    <Image
+                        source={require('../assets/logo.png')}
+                        style={styles.logo}
+                    />
 
                     <View>
                         <TouchableOpacity style={styles.submitContainer}
