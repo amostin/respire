@@ -9,8 +9,7 @@ class Connexion extends React.Component {
             UserName: '',
             UserPassword: '',
             user_name: '',
-            UserId: '',
-
+            userId: '',
         }
     }
     login = () => {
@@ -24,7 +23,7 @@ class Connexion extends React.Component {
         }
 
         else {
-            fetch('https://managis.ambroisemostin.com/controller/connexionController.php', {
+            fetch('https://respire.ambroisemostin.com/controller/connexionController.php', {
                 method: 'POST',
                 header: {
                     'Accept': 'application/json',
@@ -44,10 +43,10 @@ class Connexion extends React.Component {
                     if (responseJson[0] == "ok") {
 
 
-                        this.props.navigation.navigate("Profil");
+                        this.props.navigation.navigate("Accueil");
 
                         //Je crée la session ici et j'attribue des valeurs retournées par User_Login.php
-                        AsyncStorage.setItem('UserId', responseJson[1]);
+                        AsyncStorage.setItem('userId', responseJson[1]);
                         AsyncStorage.setItem('UserEmail', responseJson[2]);
                         AsyncStorage.setItem('UserName', responseJson[3]);
 

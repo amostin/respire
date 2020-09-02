@@ -29,7 +29,7 @@ class dbAccess
             case 'getTaff':
             case 'getnbTaffAujourdhui':
             case 'bestScore':
-
+                array_push($params, '?');
                 try {
                     $this->connexionBDD();
                     $callProc = 'call ' . $procName . '(' . join(',', $params) . ')';
@@ -41,8 +41,24 @@ class dbAccess
                 }
                 break;
 
+            case 'connexionUserRespire':
             case 'ajoutTaff':
-                array_push($params, '?');
+                array_push($params, '?', '?');
+                try {
+                    $this->connexionBDD();
+                    $callProc = 'call ' . $procName . '(' . join(',', $params) . ')';
+                    $request = $this->pdo->prepare($callProc);
+                    $request->execute($procParams);
+                    return $request->fetchAll();
+                } catch (PDOException $e) {
+                    $e->getMessage();
+                }
+                break;
+
+            case 'creationUserRespire':
+            case 'verifEmailRespire':
+            case 'verifPseudoRespire':
+                array_push($params, '?', '?', '?');
                 try {
                     $this->connexionBDD();
                     $callProc = 'call ' . $procName . '(' . join(',', $params) . ')';

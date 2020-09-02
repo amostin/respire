@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, SafeAreaView, TouchableOpacity, AsyncStorage } from 'react-native';
 import { render } from 'react-dom';
 
 
@@ -7,9 +7,21 @@ class Accueil extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: [],
             nbTaffTotal: 0,
             nbTaffAjd: 0,
             bestScore: 0
+        }
+    }
+
+    componentDidMount() {
+        this._loadInitialState().done();
+    }
+
+    _loadInitialState = async () => {
+        var value = await AsyncStorage.getItem('userId');
+        if (value !== null) {
+            this.setState({ userId: value });
         }
     }
 
@@ -22,13 +34,14 @@ class Accueil extends React.Component {
             },
             body: JSON.stringify({
                 type: 'tabac',
+                userId: this.state.userId,
             })
         })
             .then((response) => response.json())
             .then((responseJson) => {
                 console.log(responseJson);
                 alert('ok bdd');
-                console.log('yalaaa');
+                console.log('userid: ' + this.state.userId);
             })
             .catch((error) => {
                 console.error(error);
@@ -44,6 +57,7 @@ class Accueil extends React.Component {
             },
             body: JSON.stringify({
                 type: 'ortie',
+                userId: this.state.userId,
             })
         })
             .then((response) => response.json())
@@ -59,15 +73,19 @@ class Accueil extends React.Component {
 
     getTaff = () => {
         fetch('https://respire.ambroisemostin.com/controller/getTotalController.php', {
-            method: 'GET',
+            method: 'POST',
             header: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
-            }
+            },
+            body: JSON.stringify({
+                //type: 'ortie',
+                userId: this.state.userId,
+            })
         })
             .then((response) => response.json())
             .then((responseJson) => {
-                //console.log(responseJson);
+                console.log(responseJson);
                 this.setState({ nbTaffTotal: responseJson.length });
             })
             .catch((error) => {
@@ -77,11 +95,15 @@ class Accueil extends React.Component {
 
     getTaffAjd = () => {
         fetch('https://respire.ambroisemostin.com/controller/getAjdController.php', {
-            method: 'GET',
+            method: 'POST',
             header: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
-            }
+            },
+            body: JSON.stringify({
+                //type: 'ortie',
+                userId: this.state.userId,
+            })
         })
             .then((response) => response.json())
             .then((responseJson) => {
@@ -95,23 +117,37 @@ class Accueil extends React.Component {
 
     getBestScore = () => {
         fetch('https://respire.ambroisemostin.com/controller/getBestScoreController.php', {
-            method: 'GET',
+            method: 'POST',
             header: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
-            }
+            },
+            body: JSON.stringify({
+                //type: 'ortie',
+                userId: this.state.userId,
+            })
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                /*
                 var lowest = Number.POSITIVE_INFINITY;
                 var highest = Number.NEGATIVE_INFINITY;
                 var tmp;
                 for (let i = responseJson.length - 1; i >= 0; i--) {
                     tmp = responseJson[i]["0"];
+                    console.log(responseJson[i]["0"]);
                     if (tmp < lowest) lowest = tmp;
                     if (tmp > highest) highest = tmp;
                 }
-                this.setState({ bestScore: highest });
+                */
+                //console.log('test: ');
+                let scores = [];
+                for (let i = 0; i < responseJson.length; i++) {
+                    //console.log(responseJson[i]["0"]);
+                    scores.push(responseJson[i]["0"]);
+                }
+                //console.log(Math.min(...scores));
+                this.setState({ bestScore: Math.min(...scores) });
             })
             .catch((error) => {
                 console.error(error);

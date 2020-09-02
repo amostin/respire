@@ -33,7 +33,7 @@ class Inscription extends React.Component {
         }
         else {
 
-            fetch('https://managis.ambroisemostin.com/controller/inscriptionController.php', {
+            fetch('https://respire.ambroisemostin.com/controller/inscriptionController.php', {
                 method: 'post',
                 header: {
                     'Accept': 'application/json',
@@ -50,6 +50,7 @@ class Inscription extends React.Component {
                 .then((responseJson) => {
                     if (responseJson === "ok") {
                         alert('Le compte a bien été créé.');
+                        this.props.navigation.navigate("Accueil");
                     } else if (responseJson === "mailPseudoPasOk") {
                         alert('Le mail et le pseudo sont déjà utilisés.');
                     } else if (responseJson === "mailPasOk") {
