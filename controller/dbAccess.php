@@ -9,7 +9,6 @@ class dbAccess
     public function connexionBDD()
     {
         try {
-            $this->pdo = new PDO('mysql:host=91.216.107.162;dbname=ambro1430042', 'ambro1430042', 'shnzqwgi7h');
             //$this->pdo = new PDO('mysql:host=localhost;dbname=projet', 'root', 'root');
         } catch (PDOException $e) {
             print_r($e);
